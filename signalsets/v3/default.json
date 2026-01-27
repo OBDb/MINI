@@ -1,4 +1,13 @@
 { "commands": [
+{ "hdr": "6F1", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D031"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_GEAR_V2", "path": "Transmission", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Current gear"}
+  ]},
+{ "hdr": "6F1", "eax": "19", "fcm1": true, "dbg": true, "cmd": {"22": "DFE7"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_VGT_CAL_ANGLE",   "path": "Engine", "fmt": {            "len": 16, "max": 1000,    "mul": 156.25, "div": 10000, "unit": "degrees"    }, "name": "Variable geometry turbocharger calibration angle"},
+    {"id": "MINI_OIL_CHANGE_DIST", "path": "Fluids", "fmt": {"bix": 304, "len": 32, "max": 1000000,                              "unit": "kilometers" }, "name": "Distance since last oil change"}
+  ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "6335"}, "freq": 15,
   "signals": [
     {"id": "MINI_HVBAT_SOH", "path": "Battery", "fmt": {"bix": 24, "len": 8, "max": 100, "unit": "percent" }, "name": "HV battery health", "suggestedMetric": "stateOfHealth"}
@@ -62,7 +71,7 @@
   ]},
 { "hdr": "6F1", "rax": "60D", "eax": "0D", "fcm1": true, "dbg": true, "cmd": {"22": "D240"}, "freq": 0.25,
   "signals": [
-    {"id": "MINI_VSS_INSTR", "path": "Movement", "fmt": { "len": 16, "max": 1000, "unit": "kilometersPerHour" }, "name": "Vehicle speed (instrument cluster)", "suggestedMetric": "speed", "description": "Instrument cluster vehicle speed."}
+    {"id": "MINI_VSS_INSTR", "path": "Movement", "fmt": { "len": 16, "max": 1000, "unit": "kilometersPerHour" }, "name": "Vehicle speed, instrument cluster", "suggestedMetric": "speed", "description": "Instrument cluster vehicle speed."}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4AB1"}, "freq": 0.25,
   "signals": [
@@ -74,7 +83,7 @@
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA12"}, "freq": 30,
   "signals": [
-    {"id": "MINI_ATF_TEMP", "path": "Engine", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "ATF temperature"}
+    {"id": "MINI_ATF_TEMP", "path": "Engine", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Automatic transmission fluid temperature", "suggestedMetric": "transmissionFluidTemperature"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA1F"}, "freq": 1,
   "signals": [
@@ -94,25 +103,34 @@
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA23"}, "freq": 15,
   "signals": [
-    {"id": "MINI_ODO_LOWRES", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "mul": 8, "unit": "kilometers" }, "name": "Odometer, low resolution", "suggestedMetric": "odometer"}
+    {"id": "MINI_ODO_LOWRES", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "mul": 8, "unit": "kilometers" }, "name": "Odometer, low resolution", "suggestedMetric": "odometer"},
+    {"id": "MINI_ODO",        "path": "Trips", "fmt": { "len": 32, "max": 1000000, "mul": 8, "unit": "kilometers" }, "name": "[egs] mileage/odometer"}
   ]},
-{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA25"}, "freq": 30,
+{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA25"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EOT", "path": "Engine", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Engine oil temperature"}
+    {"id": "MINI_EOT", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true, "unit": "celsius" }, "name": "Engine oil temperature"}
+  ]},
+{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA28"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_BRAKE_SWITCH", "path": "Control", "fmt": {"bix": 8, "len": 8, "max": 1, "unit": "scalar" }, "name": "Brake switch"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA2A"}, "freq": 1,
   "signals": [
     {"id": "MINI_TQ_CNVRT_RPM",    "path": "Transmission", "fmt": {           "len": 16, "max": 32767, "min": -32768, "sign": true, "unit": "rpm" }, "name": "Torque converter speed"},
     {"id": "MINI_TRANS_SHAFT_RPM", "path": "Transmission", "fmt": {"bix": 16, "len": 16, "max": 32767, "min": -32768, "sign": true, "unit": "rpm" }, "name": "Transmission output shaft speed"}
   ]},
-{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA2E"}, "freq": 30,
+{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA2E"}, "freq": 1,
   "signals": [
-    {"id": "MINI_GEAR", "path": "Engine", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Gear"},
     {"id": "MINI_GEAR_SHIFT", "path": "Transmission", "name": "Shift gear", "fmt": {"len": 8, "map": {
           "0": { "description": "Park",    "value": "PARK" },
           "1": { "description": "Reverse", "value": "REVERSE" },
           "2": { "description": "Neutral", "value": "NEUTRAL" },
           "3": { "description": "Drive",   "value": "DRIVE" }
+        }}
+    },
+    {"id": "MINI_GEAR", "path": "Transmission", "name": "Drive mode", "fmt": {"bix": 8, "len": 8, "map": {
+          "3": { "description": "Drive", "value": "DRIVE" },
+          "5": { "description": "Sport", "value": "SPORT" }
         }}
     }
   ]},
@@ -141,6 +159,10 @@
     {"id": "MINI_FR_SPD", "path": "Movement", "fmt": {"bix": 16, "len": 16, "max": 327.67, "min": -327.68, "div": 100, "sign": true, "unit": "kilometersPerHour" }, "name": "Front right wheel speed"},
     {"id": "MINI_RL_SPD", "path": "Movement", "fmt": {"bix": 32, "len": 16, "max": 327.67, "min": -327.68, "div": 100, "sign": true, "unit": "kilometersPerHour" }, "name": "Rear left wheel speed"},
     {"id": "MINI_RR_SPD", "path": "Movement", "fmt": {"bix": 48, "len": 16, "max": 327.67, "min": -327.68, "div": 100, "sign": true, "unit": "kilometersPerHour" }, "name": "Rear right wheel speed"}
+  ]},
+{ "hdr": "6F1", "rax": "640", "eax": "40", "fcm1": true, "dbg": true, "cmd": {"22": "1700"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_ODO_2", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "unit": "kilometers" }, "name": "Odometer variant"}
   ]},
 { "hdr": "6F1", "rax": "656", "eax": "56", "fcm1": true, "dbg": true, "cmd": {"22": "DCDD"}, "freq": 5,
   "signals": [
@@ -180,10 +202,6 @@
 { "hdr": "6F1", "rax": "660", "eax": "60", "fcm1": true, "dbg": true, "cmd": {"22": "D112"}, "freq": 5,
   "signals": [
     {"id": "MINI_AAT", "path": "Climate", "fmt": { "len": 8, "max": 87.5, "min": -40, "div": 2, "add": -40, "unit": "celsius" }, "name": "Ambient air temperature"}
-  ]},
-{ "hdr": "6F1", "rax": "663", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D031"}, "freq": 1,
-  "signals": [
-    {"id": "MINI_GEAR_V2", "path": "Transmission", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Current gear"}
   ]}
 ]
 }
