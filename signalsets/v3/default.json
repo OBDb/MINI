@@ -1,13 +1,4 @@
 { "commands": [
-{ "hdr": "6F1", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D031"}, "freq": 1,
-  "signals": [
-    {"id": "MINI_GEAR_V2", "path": "Transmission", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Current gear"}
-  ]},
-{ "hdr": "6F1", "eax": "19", "fcm1": true, "dbg": true, "cmd": {"22": "DFE7"}, "freq": 1,
-  "signals": [
-    {"id": "MINI_VGT_CAL_ANGLE",   "path": "Engine", "fmt": {            "len": 16, "max": 1000,    "mul": 156.25, "div": 10000, "unit": "degrees"    }, "name": "Variable geometry turbocharger calibration angle"},
-    {"id": "MINI_OIL_CHANGE_DIST", "path": "Fluids", "fmt": {"bix": 304, "len": 32, "max": 1000000,                              "unit": "kilometers" }, "name": "Distance since last oil change"}
-  ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "6335"}, "freq": 15,
   "signals": [
     {"id": "MINI_HVBAT_SOH", "path": "Battery", "fmt": {"bix": 24, "len": 8, "max": 100, "unit": "percent" }, "name": "HV battery health", "suggestedMetric": "stateOfHealth"}
@@ -29,8 +20,8 @@
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DDC0"}, "freq": 30,
   "signals": [
-    {"id": "MINI_HVBAT_CT_MIN", "path": "Battery", "fmt": {           "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery cell temperature (min)"},
-    {"id": "MINI_HVBAT_CT_MAX", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery cell temperature (max)"}
+    {"id": "MINI_HVBAT_CT_MIN", "path": "Battery", "fmt": {           "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery cell temperature, min"},
+    {"id": "MINI_HVBAT_CT_MAX", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery cell temperature, max"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DF71"}, "freq": 86400,
   "signals": [
@@ -41,24 +32,24 @@
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DFA0"}, "freq": 1,
   "signals": [
-    {"id": "MINI_HVBAT_C_CAP_MIN",        "path": "Battery", "fmt": {            "len": 16, "max": 655.35,                 "div": 100,                 "unit": "ampereHours" }, "name": "Cell capacity (min)"},
-    {"id": "MINI_HVBAT_C_CAP_MAX",        "path": "Battery", "fmt": {"bix": 16,  "len": 16, "max": 655.35,                 "div": 100,                 "unit": "ampereHours" }, "name": "Cell capacity (max)"},
-    {"id": "MINI_HVBAT_C_CAP_AVG",        "path": "Battery", "fmt": {"bix": 32,  "len": 16, "max": 655.35,                 "div": 100,                 "unit": "ampereHours" }, "name": "Cell capacity (average)"},
-    {"id": "MINI_HVBAT_C_V_MIN",          "path": "Battery", "fmt": {"bix": 48,  "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell voltage (min))"},
-    {"id": "MINI_HVBAT_C_V_MAX",          "path": "Battery", "fmt": {"bix": 64,  "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell voltage (max)"},
-    {"id": "MINI_HVBAT_C_V_AVG",          "path": "Battery", "fmt": {"bix": 80,  "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell voltage (avg)"},
-    {"id": "MINI_HVBAT_C_TEMP_MIN",       "path": "Battery", "fmt": {"bix": 96,  "len": 16, "max": 327.67, "min": -327.68, "div": 100,   "sign": true, "unit": "celsius"     }, "name": "Cell temperature (min)"},
-    {"id": "MINI_HVBAT_C_TEMP_MAX",       "path": "Battery", "fmt": {"bix": 112, "len": 16, "max": 327.67, "min": -327.68, "div": 100,   "sign": true, "unit": "celsius"     }, "name": "Cell temperature (max)"},
-    {"id": "MINI_HVBAT_C_TEMP_AVG",       "path": "Battery", "fmt": {"bix": 128, "len": 16, "max": 327.67, "min": -327.68, "div": 100,   "sign": true, "unit": "celsius"     }, "name": "Cell temperature (avg)"},
-    {"id": "MINI_HVBAT_C_RES_FACTOR_MIN", "path": "Battery", "fmt": {"bix": 144, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Cell resistance factor (min)"},
-    {"id": "MINI_HVBAT_C_RES_FACTOR_MAX", "path": "Battery", "fmt": {"bix": 160, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Cell resistance factor (max)"},
-    {"id": "MINI_HVBAT_C_RES_FACTOR_AVG", "path": "Battery", "fmt": {"bix": 176, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Cell resistance factor (avg)"},
-    {"id": "MINI_HVBAT_C_SOC_MIN",        "path": "Battery", "fmt": {"bix": 192, "len": 16, "max": 655.35,                 "div": 100,                 "unit": "percent"     }, "name": "Cell SoC (min)"},
-    {"id": "MINI_HVBAT_C_SOC_MAX",        "path": "Battery", "fmt": {"bix": 208, "len": 16, "max": 655.35,                 "div": 100,                 "unit": "percent"     }, "name": "Cell SoC (max)"},
-    {"id": "MINI_HVBAT_C_SOC_AVG",        "path": "Battery", "fmt": {"bix": 224, "len": 16, "max": 655.35,                 "div": 100,                 "unit": "percent"     }, "name": "Cell SoC (avg)"},
-    {"id": "MINI_HVBAT_C_OCV_MIN",        "path": "Battery", "fmt": {"bix": 240, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV (min)"},
-    {"id": "MINI_HVBAT_C_OCV_MAX",        "path": "Battery", "fmt": {"bix": 256, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV (max)"},
-    {"id": "MINI_HVBAT_C_OCV_AVG",        "path": "Battery", "fmt": {"bix": 272, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV (avg)"},
+    {"id": "MINI_HVBAT_C_CAP_MIN",        "path": "Battery", "fmt": {            "len": 16, "max": 655.35,                 "div": 100,                 "unit": "ampereHours" }, "name": "Cell capacity, min"},
+    {"id": "MINI_HVBAT_C_CAP_MAX",        "path": "Battery", "fmt": {"bix": 16,  "len": 16, "max": 655.35,                 "div": 100,                 "unit": "ampereHours" }, "name": "Cell capacity, max"},
+    {"id": "MINI_HVBAT_C_CAP_AVG",        "path": "Battery", "fmt": {"bix": 32,  "len": 16, "max": 655.35,                 "div": 100,                 "unit": "ampereHours" }, "name": "Cell capacity, average"},
+    {"id": "MINI_HVBAT_C_V_MIN",          "path": "Battery", "fmt": {"bix": 48,  "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell voltage, min)"},
+    {"id": "MINI_HVBAT_C_V_MAX",          "path": "Battery", "fmt": {"bix": 64,  "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell voltage, max"},
+    {"id": "MINI_HVBAT_C_V_AVG",          "path": "Battery", "fmt": {"bix": 80,  "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell voltage, average"},
+    {"id": "MINI_HVBAT_C_TEMP_MIN",       "path": "Battery", "fmt": {"bix": 96,  "len": 16, "max": 327.67, "min": -327.68, "div": 100,   "sign": true, "unit": "celsius"     }, "name": "Cell temperature, min"},
+    {"id": "MINI_HVBAT_C_TEMP_MAX",       "path": "Battery", "fmt": {"bix": 112, "len": 16, "max": 327.67, "min": -327.68, "div": 100,   "sign": true, "unit": "celsius"     }, "name": "Cell temperature, max"},
+    {"id": "MINI_HVBAT_C_TEMP_AVG",       "path": "Battery", "fmt": {"bix": 128, "len": 16, "max": 327.67, "min": -327.68, "div": 100,   "sign": true, "unit": "celsius"     }, "name": "Cell temperature, average"},
+    {"id": "MINI_HVBAT_C_RES_FACTOR_MIN", "path": "Battery", "fmt": {"bix": 144, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Cell resistance factor, min"},
+    {"id": "MINI_HVBAT_C_RES_FACTOR_MAX", "path": "Battery", "fmt": {"bix": 160, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Cell resistance factor, max"},
+    {"id": "MINI_HVBAT_C_RES_FACTOR_AVG", "path": "Battery", "fmt": {"bix": 176, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Cell resistance factor, average"},
+    {"id": "MINI_HVBAT_C_SOC_MIN",        "path": "Battery", "fmt": {"bix": 192, "len": 16, "max": 655.35,                 "div": 100,                 "unit": "percent"     }, "name": "Cell state of charge, min"},
+    {"id": "MINI_HVBAT_C_SOC_MAX",        "path": "Battery", "fmt": {"bix": 208, "len": 16, "max": 655.35,                 "div": 100,                 "unit": "percent"     }, "name": "Cell state of charge, max"},
+    {"id": "MINI_HVBAT_C_SOC_AVG",        "path": "Battery", "fmt": {"bix": 224, "len": 16, "max": 655.35,                 "div": 100,                 "unit": "percent"     }, "name": "Cell state of charge, average"},
+    {"id": "MINI_HVBAT_C_OCV_MIN",        "path": "Battery", "fmt": {"bix": 240, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV, min"},
+    {"id": "MINI_HVBAT_C_OCV_MAX",        "path": "Battery", "fmt": {"bix": 256, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV, max"},
+    {"id": "MINI_HVBAT_C_OCV_AVG",        "path": "Battery", "fmt": {"bix": 272, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV, average"},
     {"id": "MINI_HVBAT_IMPEDANCE_ALPHA",  "path": "Battery", "fmt": {"bix": 288, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Aging factor"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E5C7"}, "freq": 1,
@@ -145,6 +136,11 @@
     {"id": "MINI_AXLE_FRONT_ACTUAL_TORQUE",   "path": "Tires", "fmt": {           "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, actual torque"},
     {"id": "MINI_AXLE_FRONT_SETPOINT_TORQUE", "path": "Tires", "fmt": {"bix": 32, "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, setpoint torque"}
   ]},
+{ "hdr": "6F1", "rax": "619", "eax": "19", "fcm1": true, "dbg": true, "cmd": {"22": "DFE7"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_VGT_CAL_ANGLE",   "path": "Engine", "fmt": {            "len": 16, "max": 1000,    "mul": 156.25, "div": 10000, "unit": "degrees"    }, "name": "Variable geometry turbocharger calibration angle"},
+    {"id": "MINI_OIL_CHANGE_DIST", "path": "Fluids", "fmt": {"bix": 304, "len": 32, "max": 1000000,                              "unit": "kilometers" }, "name": "Distance since last oil change"}
+  ]},
 { "hdr": "6F1", "rax": "61A", "eax": "1A", "fcm1": true, "dbg": true, "cmd": {"22": "DE00"}, "freq": 5,
   "signals": [
     {"id": "MINI_HVBAT_HVPM_SOC",     "path": "Battery", "fmt": {           "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "State of charge (hvpm)",  "description": "Battery level reading from the high voltage power module"},
@@ -162,7 +158,7 @@
   ]},
 { "hdr": "6F1", "rax": "640", "eax": "40", "fcm1": true, "dbg": true, "cmd": {"22": "1700"}, "freq": 1,
   "signals": [
-    {"id": "MINI_ODO_2", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "unit": "kilometers" }, "name": "Odometer variant"}
+    {"id": "MINI_ODO_2", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "unit": "kilometers" }, "name": "Odometer variant", "suggestedMetric": "odometer"}
   ]},
 { "hdr": "6F1", "rax": "656", "eax": "56", "fcm1": true, "dbg": true, "cmd": {"22": "DCDD"}, "freq": 5,
   "signals": [
@@ -202,6 +198,10 @@
 { "hdr": "6F1", "rax": "660", "eax": "60", "fcm1": true, "dbg": true, "cmd": {"22": "D112"}, "freq": 5,
   "signals": [
     {"id": "MINI_AAT", "path": "Climate", "fmt": { "len": 8, "max": 87.5, "min": -40, "div": 2, "add": -40, "unit": "celsius" }, "name": "Ambient air temperature"}
+  ]},
+{ "hdr": "6F1", "rax": "663", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D031"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_GEAR_V2", "path": "Transmission", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Current gear"}
   ]}
 ]
 }
