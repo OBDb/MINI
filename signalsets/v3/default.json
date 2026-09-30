@@ -15,7 +15,7 @@
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DD69"}, "freq": 1,
   "signals": [
     {"id": "MINI_HVBAT_CURR", "path": "Battery", "fmt": { "len": 32, "max": 10000, "min": -10000, "div": 100,               "unit": "amps" }, "name": "HV battery current"},
-    {"id": "MINI_HVBAT_C",    "path": "Battery", "fmt": { "len": 32, "max": 10000, "min": -10000, "div": 100, "sign": true, "unit": "amps" }, "name": "HV battery current"}
+    {"id": "MINI_HVBAT_C",    "path": "Battery", "fmt": { "len": 32, "max": 10000, "min": -10000, "div": 100, "sign": true, "unit": "amps" }, "name": "HV battery current", "suggestedMetric": "tractionBatteryCurrent"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DDBC"}, "freq": 1,
   "signals": [
@@ -62,6 +62,10 @@
     {"id": "MINI_HVBAT_C_OCV_AVG",        "path": "Battery", "fmt": {"bix": 272, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV, average"},
     {"id": "MINI_HVBAT_IMPEDANCE_ALPHA",  "path": "Battery", "fmt": {"bix": 288, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Aging factor"}
   ]},
+{ "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E561"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_HVBAT_CURRENT", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327, "min": -327, "mul": -1, "div": 100, "sign": true, "unit": "amps" }, "name": "High voltage battery current"}
+  ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E5C7"}, "freq": 1,
   "signals": [
     {"id": "MINI_HVBAT_SOH_V2", "path": "Battery", "fmt": {"bix": 24, "len": 8, "max": 100, "unit": "percent" }, "name": "HV battery health", "suggestedMetric": "stateOfHealth"}
@@ -76,7 +80,8 @@
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "400B"}, "freq": 1,
   "signals": [
-    {"id": "MINI_LAMBDA_6F1", "path": "Engine", "fmt": {"bix": 40, "len": 8, "max": 2, "div": 100, "unit": "scalar" }, "name": "Lambda 1, excess air ratio", "suggestedMetric": "o2Lambda"}
+    {"id": "MINI_LAMBDA_6F1", "path": "Engine", "fmt": {"bix": 40, "len": 8, "max": 2, "div": 100, "unit": "scalar" }, "name": "Lambda 1, excess air ratio", "suggestedMetric": "o2Lambda"},
+    {"id": "MINI_LAMBDA",     "path": "Engine", "fmt": {"bix": 40, "len": 8, "max": 2, "div": 100, "unit": "scalar" }, "name": "Lambda 1, excess air ratio"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4015"}, "freq": 1,
   "signals": [
@@ -106,15 +111,18 @@
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4300"}, "freq": 1,
   "signals": [
-    {"id": "MINI_ET", "path": "Engine", "fmt": { "len": 8, "max": 287.7, "min": -54, "mul": 1.34, "add": -54, "unit": "fahrenheit" }, "name": "Engine temperature"}
+    {"id": "MINI_ET",   "path": "Engine", "fmt": { "len": 8, "max": 287.7,  "min": -54, "mul": 1.34,           "add": -54, "unit": "fahrenheit" }, "name": "Engine temperature"},
+    {"id": "MINI_ET_8", "path": "Engine", "fmt": { "len": 8, "max": 143.25, "min": -48, "mul": 3,    "div": 4, "add": -48, "unit": "celsius"    }, "name": "Engine temperature", "suggestedMetric": "engineCoolantTemperature"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4402"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EOT", "path": "Engine", "fmt": { "len": 8, "max": 195, "min": -60, "add": -60, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
+    {"id": "MINI_EOT",     "path": "Engine", "fmt": {          "len": 8, "max": 195,   "min": -60,           "add": -60, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"},
+    {"id": "MINI_EOT_6F1", "path": "Engine", "fmt": {"bix": 8, "len": 8, "max": 127.5,             "div": 2,             "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4408"}, "freq": 5,
   "signals": [
-    {"id": "MINI_EOT_DME", "path": "Engine", "fmt": { "len": 16, "max": 6280, "min": -273.15, "div": 10, "add": -273.15, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
+    {"id": "MINI_EOT_DME",   "path": "Engine", "fmt": { "len": 16, "max": 6280,  "min": -273.15, "div": 10,  "add": -273.15, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"},
+    {"id": "MINI_EOT_DME_K", "path": "Engine", "fmt": { "len": 16, "max": 382.2, "min": -273.15, "div": 100, "add": -273.15, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "442C"}, "freq": 30,
   "signals": [
@@ -206,11 +214,15 @@
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "5889"}, "freq": 1,
   "signals": [
-    {"id": "MINI_LAMBDA", "path": "Engine", "fmt": { "len": 16, "max": 16, "mul": 16, "div": 65535, "nullmax": 15.99, "unit": "scalar" }, "name": "Lambda"}
+    {"id": "MINI_LAMBDA_V2", "path": "Engine", "fmt": { "len": 16, "max": 16, "mul": 16, "div": 65535, "nullmax": 15.99, "unit": "scalar" }, "name": "Lambda"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "58BA"}, "freq": 0.25,
   "signals": [
     {"id": "MINI_CRANK_TQ", "path": "Engine", "fmt": { "len": 16, "max": 6553, "div": 10, "unit": "newtonMeters" }, "name": "Crank torque"}
+  ]},
+{ "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "58F3"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_LOW_SIDE_FUEL_P", "path": "Fuel", "fmt": { "len": 16, "max": 65.53, "div": 1000, "unit": "bars" }, "name": "Low side fuel pressure"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "59FA"}, "freq": 1,
   "signals": [
@@ -289,6 +301,14 @@
     {"id": "MINI_OBC_AC_I_2", "path": "Engine", "fmt": {"bix": 80, "len": 16, "max": 6553,              "div": 10,                "unit": "amps" }, "name": "Charger AC current, phase 2"},
     {"id": "MINI_OBC_AC_I_3", "path": "Engine", "fmt": {"bix": 96, "len": 16, "max": 6553,              "div": 10,                "unit": "amps" }, "name": "Charger AC current, phase 3"}
   ]},
+{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"21": "05"}, "freq": 0.25,
+  "signals": [
+    {"id": "MINI_TURBINE_SPD", "path": "Movement", "fmt": { "len": 16, "max": 65535, "unit": "rpm" }, "name": "AT turbine speed"}
+  ]},
+{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"21": "08"}, "freq": 0.25,
+  "signals": [
+    {"id": "MINI_ENG_TQ", "path": "Engine", "fmt": { "len": 16, "max": 32767, "min": -32768, "sign": true, "unit": "newtonMeters" }, "name": "AT engine torque"}
+  ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"21": "0A"}, "freq": 1,
   "signals": [
     {"id": "MINI_ATF_T", "path": "Engine", "fmt": { "len": 8, "max": 200, "min": -55, "add": -55, "unit": "celsius" }, "name": "Automatic transmission fluid temperature", "suggestedMetric": "transmissionFluidTemperature"}
@@ -320,8 +340,8 @@
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA25"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EOT_6F1", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true, "unit": "celsius" }, "name": "Engine oil temperature"},
-    {"id": "MINI_EOT_V2",  "path": "Engine", "fmt": { "len": 8,  "max": 255,                                        "unit": "scalar"  }, "name": "Engine oil temperature"}
+    {"id": "MINI_EOT_6F1_V2", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true, "unit": "celsius" }, "name": "Engine oil temperature"},
+    {"id": "MINI_EOT_V2",     "path": "Engine", "fmt": { "len": 8,  "max": 255,                                        "unit": "scalar"  }, "name": "Engine oil temperature"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA28"}, "freq": 1,
   "signals": [
