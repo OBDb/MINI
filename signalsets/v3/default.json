@@ -1,8 +1,10 @@
 { "commands": [
 { "hdr": "6F1", "eax": "19", "fcm1": true, "dbg": true, "cmd": {"22": "DFE7"}, "freq": 1,
   "signals": [
-    {"id": "MINI_VGT_CAL_ANGLE",   "path": "Engine", "fmt": {            "len": 16, "max": 1000,    "mul": 156.25, "div": 10000, "unit": "degrees"    }, "name": "Variable geometry turbocharger calibration angle"},
-    {"id": "MINI_OIL_CHANGE_DIST", "path": "Fluids", "fmt": {"bix": 304, "len": 32, "max": 1000000,                              "unit": "kilometers" }, "name": "Distance since last oil change"}
+    {"id": "MINI_VGT_CAL_ANGLE",       "path": "Engine", "fmt": {            "len": 16, "max": 1000,       "mul": 156.25, "div": 10000, "unit": "degrees"    }, "name": "Variable geometry turbocharger calibration angle"},
+    {"id": "MINI_CURRENT_CALIBRATION", "path": "Engine", "fmt": {            "len": 16, "max": 1023,                      "div": 64,    "unit": "degrees"    }, "name": "Current calibration angle"},
+    {"id": "MINI_OIL_CHANGE_DIST",     "path": "Fluids", "fmt": {"bix": 304, "len": 32, "max": 1000000,                                 "unit": "kilometers" }, "name": "Distance since last oil change"},
+    {"id": "MINI_DIST_SINCE_OIL",      "path": "Trips",  "fmt": {"bix": 304, "len": 32, "max": 4294967295,                              "unit": "kilometers" }, "name": "Distance since last oil change"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "6335"}, "freq": 15,
   "signals": [
@@ -14,7 +16,7 @@
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DD69"}, "freq": 1,
   "signals": [
-    {"id": "MINI_HVBAT_CURR", "path": "Battery", "fmt": { "len": 32, "max": 10000, "min": -10000, "div": 100,               "unit": "amps" }, "name": "HV battery current"},
+    {"id": "MINI_HVBAT_CURR", "path": "Battery", "fmt": { "len": 32, "max": 10000, "min": -10000, "div": 100, "sign": true, "unit": "amps" }, "name": "HV battery current"},
     {"id": "MINI_HVBAT_C",    "path": "Battery", "fmt": { "len": 32, "max": 10000, "min": -10000, "div": 100, "sign": true, "unit": "amps" }, "name": "HV battery current", "suggestedMetric": "tractionBatteryCurrent"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DDBC"}, "freq": 1,
@@ -62,6 +64,10 @@
     {"id": "MINI_HVBAT_C_OCV_AVG",        "path": "Battery", "fmt": {"bix": 272, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV, average"},
     {"id": "MINI_HVBAT_IMPEDANCE_ALPHA",  "path": "Battery", "fmt": {"bix": 288, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Aging factor"}
   ]},
+{ "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E54D"}, "freq": 5,
+  "signals": [
+    {"id": "MINI_BAT_V", "path": "Battery", "fmt": { "len": 16, "max": 655, "div": 100, "unit": "volts" }, "name": "Battery voltage"}
+  ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E561"}, "freq": 1,
   "signals": [
     {"id": "MINI_HVBAT_CURRENT", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327, "min": -327, "mul": -1, "div": 100, "sign": true, "unit": "amps" }, "name": "High voltage battery current"}
@@ -93,6 +99,27 @@
     {"id": "MINI_12V_V", "path": "Electrical", "fmt": {"bix": 16, "len": 16, "max": 22.3837, "min": 6,       "div": 4000, "add": 6,                  "unit": "volts"   }, "name": "12V battery voltage",     "suggestedMetric": "starterBatteryVoltage"},
     {"id": "MINI_12V_A", "path": "Electrical", "fmt": {"bix": 32, "len": 16, "max": 5042.8,  "min": -200,    "div": 12.5, "add": -200,               "unit": "amps"    }, "name": "12V battery current"}
   ]},
+{ "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "40A9"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_BAT_CAP",          "path": "Battery", "fmt": {           "len": 8, "max": 255, "unit": "ampereHours" }, "name": "Battery capacity"},
+    {"id": "MINI_ORIGINAL_BAT_CAP", "path": "Battery", "fmt": {"bix": 16, "len": 8, "max": 255, "unit": "ampereHours" }, "name": "Original battery capacity"}
+  ]},
+{ "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "40AD"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_BAT_ST_CHG_CURRENT",     "path": "Battery", "fmt": {            "len": 8,  "max": 255,   "unit": "percent" }, "name": "Battery state of charge current"},
+    {"id": "MINI_BAT_ST_CHG_LAST_1",      "path": "Battery", "fmt": {"bix": 16,  "len": 8,  "max": 255,   "unit": "percent" }, "name": "Battery state of charge last-1"},
+    {"id": "MINI_BAT_ST_CHG_LAST_2",      "path": "Battery", "fmt": {"bix": 32,  "len": 8,  "max": 255,   "unit": "percent" }, "name": "Battery state of charge last-2"},
+    {"id": "MINI_BAT_ST_CHG_LAST_3",      "path": "Battery", "fmt": {"bix": 48,  "len": 8,  "max": 255,   "unit": "percent" }, "name": "Battery state of charge last-3"},
+    {"id": "MINI_BAT_ST_CHG_LAST_4",      "path": "Battery", "fmt": {"bix": 64,  "len": 8,  "max": 255,   "unit": "percent" }, "name": "Battery state of charge last-4"},
+    {"id": "MINI_BAT_ST_CHG_LAST_5",      "path": "Battery", "fmt": {"bix": 80,  "len": 8,  "max": 255,   "unit": "percent" }, "name": "Battery state of charge last-5"},
+    {"id": "MINI_BAT_TIME_ST_CHG_0_40",   "path": "Battery", "fmt": {"bix": 96,  "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in state of charge 0-40%"},
+    {"id": "MINI_BAT_TIME_ST_CHG_40_60",  "path": "Battery", "fmt": {"bix": 112, "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in state of charge 40-60%"},
+    {"id": "MINI_BAT_TIME_ST_CHG_60_70",  "path": "Battery", "fmt": {"bix": 128, "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in state of charge 60-70%"},
+    {"id": "MINI_BAT_TIME_ST_CHG_70_80",  "path": "Battery", "fmt": {"bix": 144, "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in state of charge 70-80%"},
+    {"id": "MINI_BAT_TIME_ST_CHG_80_90",  "path": "Battery", "fmt": {"bix": 160, "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in state of charge 80-90%"},
+    {"id": "MINI_BAT_TIME_ST_CHG_90_100", "path": "Battery", "fmt": {"bix": 176, "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in state of charge 90-100%"},
+    {"id": "MINI_BAT_TIME_INVALID_ST",    "path": "Battery", "fmt": {"bix": 192, "len": 16, "max": 65535, "unit": "percent" }, "name": "Battery time in invalid state of charge"}
+  ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "40CB"}, "freq": 5,
   "signals": [
     {"id": "MINI_ETHANOL_CAN", "path": "Fuel", "fmt": {"bix": 104, "len": 8, "max": 100, "div": 2, "unit": "percent" }, "name": "Ethanol content, CAN broadcast, live"}
@@ -111,13 +138,13 @@
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4300"}, "freq": 1,
   "signals": [
-    {"id": "MINI_ET",   "path": "Engine", "fmt": { "len": 8, "max": 287.7,  "min": -54, "mul": 1.34,           "add": -54, "unit": "fahrenheit" }, "name": "Engine temperature"},
-    {"id": "MINI_ET_8", "path": "Engine", "fmt": { "len": 8, "max": 143.25, "min": -48, "mul": 3,    "div": 4, "add": -48, "unit": "celsius"    }, "name": "Engine temperature", "suggestedMetric": "engineCoolantTemperature"}
+    {"id": "MINI_ET_8", "path": "Engine", "fmt": { "len": 8,  "max": 287.7, "min": -54,     "mul": 1.34,            "add": -54,     "unit": "fahrenheit" }, "name": "Engine temperature", "suggestedMetric": "engineCoolantTemperature"},
+    {"id": "MINI_ET",   "path": "Engine", "fmt": { "len": 16, "max": 6280,  "min": -273.15,              "div": 10, "add": -273.15, "unit": "celsius"    }, "name": "Engine temperature", "suggestedMetric": "engineCoolantTemperature"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4402"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EOT",     "path": "Engine", "fmt": {          "len": 8, "max": 195,   "min": -60,           "add": -60, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"},
-    {"id": "MINI_EOT_6F1", "path": "Engine", "fmt": {"bix": 8, "len": 8, "max": 127.5,             "div": 2,             "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
+    {"id": "MINI_EOT_8", "path": "Engine", "fmt": {          "len": 8, "max": 195,   "min": -60,           "add": -60, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"},
+    {"id": "MINI_EOT",   "path": "Engine", "fmt": {"bix": 8, "len": 8, "max": 127.5,             "div": 2,             "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
   ]},
 { "hdr": "6F1", "rax": "612", "eax": "12", "fcm1": true, "dbg": true, "cmd": {"22": "4408"}, "freq": 5,
   "signals": [
@@ -305,6 +332,10 @@
   "signals": [
     {"id": "MINI_TURBINE_SPD", "path": "Movement", "fmt": { "len": 16, "max": 65535, "unit": "rpm" }, "name": "AT turbine speed"}
   ]},
+{ "hdr": "6F1", "rax": "618", "eax": "18", "dbg": true, "cmd": {"21": "07"}, "freq": 0.25,
+  "signals": [
+    {"id": "MINI_AVG_WHEELS_SPD", "path": "Tires", "fmt": { "len": 8, "max": 510, "mul": 2, "unit": "kilometersPerHour" }, "name": "Average wheel speed"}
+  ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"21": "08"}, "freq": 0.25,
   "signals": [
     {"id": "MINI_ENG_TQ", "path": "Engine", "fmt": { "len": 16, "max": 32767, "min": -32768, "sign": true, "unit": "newtonMeters" }, "name": "AT engine torque"}
@@ -313,9 +344,17 @@
   "signals": [
     {"id": "MINI_ATF_T", "path": "Engine", "fmt": { "len": 8, "max": 200, "min": -55, "add": -55, "unit": "celsius" }, "name": "Automatic transmission fluid temperature", "suggestedMetric": "transmissionFluidTemperature"}
   ]},
+{ "hdr": "6F1", "rax": "618", "eax": "18", "dbg": true, "cmd": {"21": "0B"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_CLU_LOCK_UP", "path": "Transmission", "fmt": { "len": 8, "max": 255, "unit": "kilometersPerHour" }, "name": "Clutch lock-up speed"}
+  ]},
+{ "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "442F"}, "freq": 0.25,
+  "signals": [
+    {"id": "MINI_ENG_TQ_6F1", "path": "Engine", "fmt": { "len": 16, "max": 65535, "unit": "newtonMeters" }, "name": "Engine torque"}
+  ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA12"}, "freq": 30,
   "signals": [
-    {"id": "MINI_ATF_TEMP", "path": "Engine", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Automatic transmission fluid temperature", "suggestedMetric": "transmissionFluidTemperature"}
+    {"id": "MINI_ATF_TEMP", "path": "Engine", "fmt": { "len": 16, "max": 65487, "min": -48, "add": -48, "nullmax": 65487, "unit": "celsius" }, "name": "Automatic transmission fluid temperature", "suggestedMetric": "transmissionFluidTemperature"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA1F"}, "freq": 1,
   "signals": [
@@ -335,13 +374,12 @@
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA23"}, "freq": 15,
   "signals": [
-    {"id": "MINI_ODO_LOWRES", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "mul": 8, "unit": "kilometers" }, "name": "Odometer, low resolution", "suggestedMetric": "odometer"},
-    {"id": "MINI_ODO_V2",     "path": "Trips", "fmt": { "len": 32, "max": 1000000, "mul": 8, "unit": "kilometers" }, "name": "[egs] mileage/odometer"}
+    {"id": "MINI_ODO_LOWRES", "path": "Trips", "fmt": { "len": 32, "max": 1000000, "mul": 8, "unit": "kilometers" }, "name": "Odometer, low resolution", "suggestedMetric": "odometer"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA25"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EOT_6F1_V2", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true, "unit": "celsius" }, "name": "Engine oil temperature"},
-    {"id": "MINI_EOT_V2",     "path": "Engine", "fmt": { "len": 8,  "max": 255,                                        "unit": "scalar"  }, "name": "Engine oil temperature"}
+    {"id": "MINI_EOT_6F1", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true,                 "unit": "celsius" }, "name": "Engine oil temperature"},
+    {"id": "MINI_EOT_V2",  "path": "Engine", "fmt": { "len": 16, "max": 250, "min": -49,  "add": -48, "sign": true, "nullmin": -49, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA28"}, "freq": 1,
   "signals": [
@@ -375,8 +413,10 @@
   ]},
 { "hdr": "6F1", "rax": "619", "eax": "19", "fcm1": true, "dbg": true, "cmd": {"22": "DB32"}, "freq": 0.25,
   "signals": [
-    {"id": "MINI_AXLE_FRONT_ACTUAL_TORQUE",   "path": "Tires", "fmt": {           "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, actual torque"},
-    {"id": "MINI_AXLE_FRONT_SETPOINT_TORQUE", "path": "Tires", "fmt": {"bix": 32, "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, setpoint torque"}
+    {"id": "MINI_AXLE_FRONT_ACTUAL_TORQUE",   "path": "Tires",  "fmt": {           "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, actual torque"},
+    {"id": "MINI_FRONT_AXLE_ACT_TQ",          "path": "Engine", "fmt": {           "len": 16, "max": 8191, "min": -8192, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, actual torque"},
+    {"id": "MINI_AXLE_FRONT_SETPOINT_TORQUE", "path": "Tires",  "fmt": {"bix": 32, "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, setpoint torque"},
+    {"id": "MINI_FRONT_AXLE_TGT_TQ",          "path": "Engine", "fmt": {"bix": 32, "len": 16, "max": 8191, "min": -8192, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle target torque"}
   ]},
 { "hdr": "6F1", "rax": "61A", "eax": "1A", "fcm1": true, "dbg": true, "cmd": {"22": "DE00"}, "freq": 5,
   "signals": [
@@ -437,41 +477,45 @@
     {"id": "MINI_RL_VSS", "path": "Movement", "fmt": {"bix": 32, "len": 16, "max": 327.67, "min": -327.68, "div": 100, "sign": true, "unit": "kilometersPerHour" }, "name": "Rear left wheel speed"},
     {"id": "MINI_RR_VSS", "path": "Movement", "fmt": {"bix": 48, "len": 16, "max": 327.67, "min": -327.68, "div": 100, "sign": true, "unit": "kilometersPerHour" }, "name": "Rear right wheel speed"}
   ]},
+{ "hdr": "6F1", "rax": "629", "eax": "29", "fcm1": true, "dbg": true, "cmd": {"22": "DBE5"}, "freq": 0.25,
+  "signals": [
+    {"id": "MINI_BRAKE_P", "path": "Control", "fmt": { "len": 16, "max": 3276, "min": -3276, "div": 10, "sign": true, "unit": "bars" }, "name": "Brake pressure"}
+  ]},
 { "hdr": "6F1", "rax": "629", "eax": "29", "fcm1": true, "dbg": true, "cmd": {"22": "DC98"}, "freq": 15,
   "signals": [
-    {"id": "MINI_TPMS_POS_FL", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Front left tire sensor position",  "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
-    {"id": "MINI_TP_FL",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                          "name": "Front left tire pressure",                                      "suggestedMetric": "frontLeftTirePressure"},
-    {"id": "MINI_TT_FL",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Front left tire temperature",      "suggestedMetric": "frontLeftTireTemperature"},
-    {"id": "MINI_TP_SET_FL",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                          "name": "Front left tire pressure, set point"},
-    {"id": "MINI_TPMS_RX_FL",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Front left tire sensor reception"},
-    {"id": "MINI_TPMS_BAT_FL", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                          "name": "Front left tire sensor battery life, months"}
+    {"id": "MINI_TPMS_POS_FL", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Front left tire sensor position",   "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
+    {"id": "MINI_TP_FL",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                           "name": "Front left tire pressure",                                      "suggestedMetric": "frontLeftTirePressure"},
+    {"id": "MINI_TT_FL",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Front left tire temperature",       "suggestedMetric": "frontLeftTireTemperature"},
+    {"id": "MINI_TP_SET_FL",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                           "name": "Front left tire pressure, set point"},
+    {"id": "MINI_TPMS_RX_FL",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Tire sensor reception, front left"},
+    {"id": "MINI_TPMS_BAT_FL", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                           "name": "Front left tire sensor battery life, months"}
   ]},
 { "hdr": "6F1", "rax": "629", "eax": "29", "fcm1": true, "dbg": true, "cmd": {"22": "DC99"}, "freq": 15,
   "signals": [
-    {"id": "MINI_TPMS_POS_FR", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Front right tire sensor position",  "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
-    {"id": "MINI_TP_FR",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                           "name": "Front right tire pressure",                                     "suggestedMetric": "frontRightTirePressure"},
-    {"id": "MINI_TT_FR",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Front right tire temperature",      "suggestedMetric": "frontRightTireTemperature"},
-    {"id": "MINI_TP_SET_FR",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                           "name": "Front right tire pressure, set point"},
-    {"id": "MINI_TPMS_RX_FR",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Front right tire sensor reception"},
-    {"id": "MINI_TPMS_BAT_FR", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                           "name": "Front right tire sensor battery life, months"}
+    {"id": "MINI_TPMS_POS_FR", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Front right tire sensor position",   "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
+    {"id": "MINI_TP_FR",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                            "name": "Front right tire pressure",                                     "suggestedMetric": "frontRightTirePressure"},
+    {"id": "MINI_TT_FR",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Front right tire temperature",       "suggestedMetric": "frontRightTireTemperature"},
+    {"id": "MINI_TP_SET_FR",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                            "name": "Front right tire pressure, set point"},
+    {"id": "MINI_TPMS_RX_FR",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Tire sensor reception, front right"},
+    {"id": "MINI_TPMS_BAT_FR", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                            "name": "Front right tire sensor battery life, months"}
   ]},
 { "hdr": "6F1", "rax": "629", "eax": "29", "fcm1": true, "dbg": true, "cmd": {"22": "DC9A"}, "freq": 15,
   "signals": [
-    {"id": "MINI_TPMS_POS_RL", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Rear left tire sensor position",  "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
-    {"id": "MINI_TP_RL",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                         "name": "Rear left tire pressure",                                       "suggestedMetric": "rearLeftTirePressure"},
-    {"id": "MINI_TT_RL",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Rear left tire temperature",      "suggestedMetric": "rearLeftTireTemperature"},
-    {"id": "MINI_TP_SET_RL",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                         "name": "Rear left tire pressure, set point"},
-    {"id": "MINI_TPMS_RX_RL",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Rear left tire sensor reception"},
-    {"id": "MINI_TPMS_BAT_RL", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                         "name": "Rear left tire sensor battery life, months"}
+    {"id": "MINI_TPMS_POS_RL", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Rear left tire sensor position",   "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
+    {"id": "MINI_TP_RL",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                          "name": "Rear left tire pressure",                                       "suggestedMetric": "rearLeftTirePressure"},
+    {"id": "MINI_TT_RL",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Rear left tire temperature",       "suggestedMetric": "rearLeftTireTemperature"},
+    {"id": "MINI_TP_SET_RL",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                          "name": "Rear left tire pressure, set point"},
+    {"id": "MINI_TPMS_RX_RL",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Tire sensor reception, rear left"},
+    {"id": "MINI_TPMS_BAT_RL", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                          "name": "Rear left tire sensor battery life, months"}
   ]},
 { "hdr": "6F1", "rax": "629", "eax": "29", "fcm1": true, "dbg": true, "cmd": {"22": "DC9B"}, "freq": 15,
   "signals": [
-    {"id": "MINI_TPMS_POS_RR", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Rear right tire sensor position",  "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
-    {"id": "MINI_TP_RR",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                          "name": "Rear right tire pressure",                                      "suggestedMetric": "rearRightTirePressure"},
-    {"id": "MINI_TT_RR",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Rear right tire temperature",      "suggestedMetric": "rearRightTireTemperature"},
-    {"id": "MINI_TP_SET_RR",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                          "name": "Rear right tire pressure, set point"},
-    {"id": "MINI_TPMS_RX_RR",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Rear right tire sensor reception"},
-    {"id": "MINI_TPMS_BAT_RR", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                          "name": "Rear right tire sensor battery life, months"}
+    {"id": "MINI_TPMS_POS_RR", "path": "Tires", "fmt": {"bix": 32,  "len": 8,  "max": 255,                                                                         "unit": "scalar"  },               "name": "Rear right tire sensor position",   "description": "0 front left, 1 front right, 2 rear left, 3 rear right"},
+    {"id": "MINI_TP_RR",       "path": "Tires", "fmt": {"bix": 40,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                           "name": "Rear right tire pressure",                                      "suggestedMetric": "rearRightTirePressure"},
+    {"id": "MINI_TT_RR",       "path": "Tires", "fmt": {"bix": 56,  "len": 8,  "max": 127,   "min": -128,                              "sign": true,               "unit": "celsius" },               "name": "Rear right tire temperature",       "suggestedMetric": "rearRightTireTemperature"},
+    {"id": "MINI_TP_SET_RR",   "path": "Tires", "fmt": {"bix": 64,  "len": 16, "blsb": true, "max": 32.76, "min": -32.76, "div": 1000,               "sign": true,                   "unit": "bars"   },                                           "name": "Rear right tire pressure, set point"},
+    {"id": "MINI_TPMS_RX_RR",  "path": "Tires", "fmt": {"bix": 96,  "len": 8,  "max": 255,                                                                         "unit": "percent" },               "name": "Tire sensor reception, rear right"},
+    {"id": "MINI_TPMS_BAT_RR", "path": "Tires", "fmt": {"bix": 120, "len": 16, "blsb": true, "max": 65535,                                                                           "unit": "scalar" },                                           "name": "Rear right tire sensor battery life, months"}
   ]},
 { "hdr": "6F1", "rax": "630", "eax": "30", "fcm1": true, "dbg": true, "cmd": {"22": "DB99"}, "freq": 1,
   "signals": [
@@ -484,6 +528,11 @@
 { "hdr": "6F1", "rax": "640", "eax": "40", "fcm1": true, "dbg": true, "cmd": {"22": "D130"}, "freq": 5,
   "signals": [
     {"id": "MINI_PARK_BRAKE", "path": "Control", "fmt": { "len": 8, "max": 1, "unit": "offon" }, "name": "Parking brake applied"}
+  ]},
+{ "hdr": "6F1", "rax": "640", "eax": "40", "fcm1": true, "dbg": true, "cmd": {"22": "D906"}, "freq": 1,
+  "signals": [
+    {"id": "MINI_AC_COMP_STAT", "path": "Engine", "fmt": {"bix": 8,  "len": 8, "max": 255, "unit": "scalar"  }, "name": "Air conditioning compressor status"},
+    {"id": "MINI_AC_COMP_PWM",  "path": "Engine", "fmt": {"bix": 16, "len": 8, "max": 255, "unit": "percent" }, "name": "Air conditioning compressor PWM"}
   ]},
 { "hdr": "6F1", "rax": "656", "eax": "56", "fcm1": true, "dbg": true, "cmd": {"22": "DCDD"}, "freq": 5,
   "signals": [
@@ -547,7 +596,8 @@
   ]},
 { "hdr": "6F1", "rax": "663", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D031"}, "freq": 1,
   "signals": [
-    {"id": "MINI_GEAR_6F1", "path": "Transmission", "fmt": { "len": 8, "max": 255, "unit": "scalar" }, "name": "Current gear"}
+    {"id": "MINI_GEAR_6F1", "path": "Transmission", "fmt": { "len": 8, "max": 255,                 "unit": "scalar" }, "name": "Current gear"},
+    {"id": "MINI_GEAR_V2",  "path": "Transmission", "fmt": { "len": 8, "max": 255, "nullmax": 255, "unit": "scalar" }, "name": "Current gear"}
   ]},
 { "hdr": "6F1", "rax": "678", "eax": "78", "fcm1": true, "dbg": true, "cmd": {"22": "D85C"}, "freq": 5,
   "signals": [
