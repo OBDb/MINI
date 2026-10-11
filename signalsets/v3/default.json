@@ -21,9 +21,9 @@
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DDBC"}, "freq": 1,
   "signals": [
-    {"id": "MINI_HVBAT_SOC",     "path": "Battery", "fmt": {           "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "HV battery charge",           "suggestedMetric": "stateOfCharge"},
-    {"id": "MINI_HVBAT_SOC_MAX", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "HV battery charge (maximum)"},
-    {"id": "MINI_HVBAT_SOC_MIN", "path": "Battery", "fmt": {"bix": 32, "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "HV battery charge (minimum)"}
+    {"id": "MINI_HVBAT_SOC",     "path": "Battery", "fmt": {           "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "HV battery charge",          "suggestedMetric": "stateOfCharge"},
+    {"id": "MINI_HVBAT_SOC_MAX", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "HV battery charge, maximum"},
+    {"id": "MINI_HVBAT_SOC_MIN", "path": "Battery", "fmt": {"bix": 32, "len": 16, "max": 100, "div": 10, "unit": "percent" }, "name": "HV battery charge, minimum"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DDBF"}, "freq": 5,
   "signals": [
@@ -70,7 +70,7 @@
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E561"}, "freq": 1,
   "signals": [
-    {"id": "MINI_HVBAT_CURRENT", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327, "min": -327, "mul": -1, "div": 100, "sign": true, "unit": "amps" }, "name": "High voltage battery current"}
+    {"id": "MINI_HVBAT_CURRENT", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327, "min": -327, "mul": -1, "div": 100, "sign": true, "unit": "amps" }, "name": "High voltage battery current", "suggestedMetric": "tractionBatteryCurrent"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E5C7"}, "freq": 1,
   "signals": [
@@ -378,8 +378,8 @@
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA25"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EOT_6F1", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true,                 "unit": "celsius" }, "name": "Engine oil temperature"},
-    {"id": "MINI_EOT_V2",  "path": "Engine", "fmt": { "len": 16, "max": 250, "min": -49,  "add": -48, "sign": true, "nullmin": -49, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
+    {"id": "MINI_EOT_6F1_6F1", "path": "Engine", "fmt": { "len": 16, "max": 500, "min": -500, "add": -48, "sign": true,                 "unit": "celsius" }, "name": "Engine oil temperature"},
+    {"id": "MINI_EOT_V2",      "path": "Engine", "fmt": { "len": 16, "max": 250, "min": -49,  "add": -48, "sign": true, "nullmin": -49, "unit": "celsius" }, "name": "Engine oil temperature", "suggestedMetric": "engineOilTemperature"}
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA28"}, "freq": 1,
   "signals": [
@@ -407,15 +407,15 @@
   ]},
 { "hdr": "6F1", "rax": "618", "eax": "18", "fcm1": true, "dbg": true, "cmd": {"22": "DA37"}, "freq": 30,
   "signals": [
-    {"id": "MINI_TIME_D", "path": "Engine", "fmt": {           "len": 8, "max": 255, "unit": "scalar" }, "name": "Time in D"},
-    {"id": "MINI_TIME_S", "path": "Engine", "fmt": {"bix": 8,  "len": 8, "max": 255, "unit": "scalar" }, "name": "Time in S"},
-    {"id": "MINI_TIME_M", "path": "Engine", "fmt": {"bix": 16, "len": 8, "max": 255, "unit": "scalar" }, "name": "Time in M"}
+    {"id": "MINI_TIME_D", "path": "Engine", "fmt": {           "len": 8, "max": 255, "unit": "scalar" }, "name": "Time in d"},
+    {"id": "MINI_TIME_S", "path": "Engine", "fmt": {"bix": 8,  "len": 8, "max": 255, "unit": "scalar" }, "name": "Time in s"},
+    {"id": "MINI_TIME_M", "path": "Engine", "fmt": {"bix": 16, "len": 8, "max": 255, "unit": "scalar" }, "name": "Time in m"}
   ]},
 { "hdr": "6F1", "rax": "619", "eax": "19", "fcm1": true, "dbg": true, "cmd": {"22": "DB32"}, "freq": 0.25,
   "signals": [
     {"id": "MINI_AXLE_FRONT_ACTUAL_TORQUE",   "path": "Tires",  "fmt": {           "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, actual torque"},
     {"id": "MINI_FRONT_AXLE_ACT_TQ",          "path": "Engine", "fmt": {           "len": 16, "max": 8191, "min": -8192, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, actual torque"},
-    {"id": "MINI_AXLE_FRONT_SETPOINT_TORQUE", "path": "Tires",  "fmt": {"bix": 32, "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, setpoint torque"},
+    {"id": "MINI_AXLE_FRONT_SETPOINT_TORQUE", "path": "Tires",  "fmt": {"bix": 32, "len": 16, "max": 8000, "min": -8000, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle, set point torque"},
     {"id": "MINI_FRONT_AXLE_TGT_TQ",          "path": "Engine", "fmt": {"bix": 32, "len": 16, "max": 8191, "min": -8192, "div": 4, "sign": true, "unit": "newtonMeters" }, "name": "Front axle target torque"}
   ]},
 { "hdr": "6F1", "rax": "61A", "eax": "1A", "fcm1": true, "dbg": true, "cmd": {"22": "DE00"}, "freq": 5,
@@ -428,17 +428,17 @@
   ]},
 { "hdr": "6F1", "rax": "61A", "eax": "1A", "fcm1": true, "dbg": true, "cmd": {"22": "DE8A"}, "freq": 1,
   "signals": [
-    {"id": "MINI_EM_I_W",      "path": "Engine", "fmt": {           "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor phase W current"},
-    {"id": "MINI_EM_I_V",      "path": "Engine", "fmt": {"bix": 16, "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor phase V current"},
-    {"id": "MINI_EM_I_U",      "path": "Engine", "fmt": {"bix": 32, "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor phase U current"},
+    {"id": "MINI_EM_I_W",      "path": "Engine", "fmt": {           "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor phase w current"},
+    {"id": "MINI_EM_I_V",      "path": "Engine", "fmt": {"bix": 16, "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor phase v current"},
+    {"id": "MINI_EM_I_U",      "path": "Engine", "fmt": {"bix": 32, "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor phase u current"},
     {"id": "MINI_EM_I_EXC",    "path": "Engine", "fmt": {"bix": 48, "len": 16, "max": 2047, "min": -2048, "div": 16, "sign": true, "unit": "amps" }, "name": "Drive motor excitation current"},
     {"id": "MINI_EM_INV_I_DC", "path": "Engine", "fmt": {"bix": 64, "len": 16, "max": 3276, "min": -3276, "div": 10, "sign": true, "unit": "amps" }, "name": "Drive inverter HV DC current"}
   ]},
 { "hdr": "6F1", "rax": "61A", "eax": "1A", "fcm1": true, "dbg": true, "cmd": {"22": "DE8C"}, "freq": 5,
   "signals": [
-    {"id": "MINI_INV_T_U",      "path": "Engine",       "fmt": {            "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter phase U temperature"},
-    {"id": "MINI_INV_T_V",      "path": "Engine",       "fmt": {"bix": 16,  "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter phase V temperature"},
-    {"id": "MINI_INV_T_W",      "path": "Engine",       "fmt": {"bix": 32,  "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter phase W temperature"},
+    {"id": "MINI_INV_T_U",      "path": "Engine",       "fmt": {            "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter phase u temperature"},
+    {"id": "MINI_INV_T_V",      "path": "Engine",       "fmt": {"bix": 16,  "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter phase v temperature"},
+    {"id": "MINI_INV_T_W",      "path": "Engine",       "fmt": {"bix": 32,  "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter phase w temperature"},
     {"id": "MINI_INV_T_GATE",   "path": "Engine",       "fmt": {"bix": 48,  "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "Drive inverter gate driver temperature"},
     {"id": "MINI_DCDC_T_BOARD", "path": "Transmission", "fmt": {"bix": 64,  "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "DC/DC converter board temperature"},
     {"id": "MINI_OBC_T_BOARD",  "path": "Engine",       "fmt": {"bix": 176, "len": 16, "max": 511, "min": -511, "mul": 39, "div": 2500, "sign": true, "unit": "celsius" }, "name": "On-board charger board temperature"},
@@ -562,12 +562,12 @@
   ]},
 { "hdr": "6F1", "rax": "660", "eax": "60", "fcm1": true, "dbg": true, "cmd": {"22": "D111"}, "freq": 5,
   "signals": [
-    {"id": "MINI_RANGE_E_CUR", "path": "Trips", "fmt": {           "len": 16, "max": 6553.5, "div": 10,                                  "unit": "kilometers"    }, "name": "Current electric range",       "suggestedMetric": "electricRange",        "description": "Current estimated electric range"},
-    {"id": "MINI_RANGE_E_MAX", "path": "Trips", "fmt": {"bix": 16, "len": 16, "max": 6553.5, "div": 10,                                  "unit": "kilometers"    }, "name": "Maximum electric range"},
-    {"id": "MINI_RANGE_F_CUR", "path": "Trips", "fmt": {"bix": 32, "len": 16, "max": 6553.5, "div": 10,                 "nullmax": 6553, "unit": "kilometers"    }, "name": "Current fuel range",           "description": "Requires range extender."},
-    {"id": "MINI_RANGE_F_MAX", "path": "Trips", "fmt": {"bix": 48, "len": 16, "max": 6553.5, "div": 10,   "nullmin": 0, "nullmax": 6553, "unit": "kilometers"    }, "name": "Maximum fuel range",           "description": "Requires range extender."},
-    {"id": "MINI_RANGE_E_USE", "path": "Trips", "fmt": {"bix": 64, "len": 16, "max": 65.535, "div": 1000, "nullmin": 0, "nullmax": 65,   "unit": "kilowattHours" }, "name": "Electric consumption / 100km"},
-    {"id": "MINI_AUX_PWR",     "path": "Trips", "fmt": {"bix": 80, "len": 16, "max": 655.35, "div": 100,                "nullmax": 655,  "unit": "kilowatts"     }, "name": "Auxiliary power consumption"}
+    {"id": "MINI_RANGE_E_CUR", "path": "Trips", "fmt": {           "len": 16, "max": 6553.5, "div": 10,                 "nullmax": 6553.5, "unit": "kilometers"    }, "name": "Current electric range",       "suggestedMetric": "electricRange",        "description": "Current estimated electric range"},
+    {"id": "MINI_RANGE_E_MAX", "path": "Trips", "fmt": {"bix": 16, "len": 16, "max": 6553.5, "div": 10,                 "nullmax": 6553.5, "unit": "kilometers"    }, "name": "Maximum electric range"},
+    {"id": "MINI_RANGE_F_CUR", "path": "Trips", "fmt": {"bix": 32, "len": 16, "max": 6553.5, "div": 10,                 "nullmax": 6553,   "unit": "kilometers"    }, "name": "Current fuel range",           "description": "Requires range extender."},
+    {"id": "MINI_RANGE_F_MAX", "path": "Trips", "fmt": {"bix": 48, "len": 16, "max": 6553.5, "div": 10,   "nullmin": 0, "nullmax": 6553,   "unit": "kilometers"    }, "name": "Maximum fuel range",           "description": "Requires range extender."},
+    {"id": "MINI_RANGE_E_USE", "path": "Trips", "fmt": {"bix": 64, "len": 16, "max": 65.535, "div": 1000, "nullmin": 0, "nullmax": 65,     "unit": "kilowattHours" }, "name": "Electric consumption / 100km"},
+    {"id": "MINI_AUX_PWR",     "path": "Trips", "fmt": {"bix": 80, "len": 16, "max": 655.35, "div": 100,                "nullmax": 655,    "unit": "kilowatts"     }, "name": "Auxiliary power consumption"}
   ]},
 { "hdr": "6F1", "rax": "660", "eax": "60", "fcm1": true, "dbg": true, "cmd": {"22": "D112"}, "freq": 5,
   "signals": [
