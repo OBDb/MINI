@@ -33,9 +33,10 @@
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DDC0"}, "freq": 30,
   "signals": [
-    {"id": "MINI_HVBAT_CT_MIN", "path": "Battery", "fmt": {           "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery cell temperature, minimum"},
-    {"id": "MINI_HVBAT_CT_MAX", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery cell temperature, maximum"},
-    {"id": "MINI_HVBAT_T",      "path": "Battery", "fmt": {"bix": 32, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "unit": "celsius" }, "name": "HV battery temperature"}
+    {"id": "MINI_HVBAT_CT_MIN", "path": "Battery", "fmt": {           "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true,                    "unit": "celsius" }, "name": "HV battery cell temperature, minimum"},
+    {"id": "MINI_HVBAT_CT_MAX", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true,                    "unit": "celsius" }, "name": "HV battery cell temperature, maximum"},
+    {"id": "MINI_HVBAT_T",      "path": "Battery", "fmt": {"bix": 32, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true,                    "unit": "celsius" }, "name": "HV battery temperature"},
+    {"id": "MINI_HVBAT_CT_AVG", "path": "Battery", "fmt": {"bix": 32, "len": 16, "max": 327.67, "min": -327.67, "div": 100, "sign": true, "nullmax": 327.67, "unit": "celsius" }, "name": "HV battery cell temperature, average"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "DF71"}, "freq": 86400,
   "signals": [
@@ -66,10 +67,104 @@
     {"id": "MINI_HVBAT_C_OCV_AVG",        "path": "Battery", "fmt": {"bix": 272, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "volts"       }, "name": "Cell OCV, average"},
     {"id": "MINI_HVBAT_IMPEDANCE_ALPHA",  "path": "Battery", "fmt": {"bix": 288, "len": 16, "max": 6.5535,                 "div": 10000,               "unit": "scalar"      }, "name": "Aging factor"}
   ]},
+{ "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E54A"}, "freq": 5,
+  "signals": [
+    {"id": "MINI_HVBAT_V_2", "path": "Battery", "fmt": { "len": 16, "max": 655.35, "div": 100, "unit": "volts" }, "name": "HV voltage, second reading"}
+  ]},
+{ "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E54B"}, "freq": 5,
+  "signals": [
+    {"id": "MINI_HVBAT_V_3", "path": "Battery", "fmt": { "len": 16, "max": 655.35, "div": 100, "unit": "volts" }, "name": "HV voltage, third reading"}
+  ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E54D"}, "freq": 5,
   "signals": [
     {"id": "MINI_BAT_V",   "path": "Battery", "fmt": { "len": 16, "max": 655,    "div": 100, "unit": "volts" }, "name": "Battery voltage"},
     {"id": "MINI_HVBAT_V", "path": "Battery", "fmt": { "len": 16, "max": 655.35, "div": 100, "unit": "volts" }, "name": "HV battery voltage", "suggestedMetric": "tractionBatteryVoltage"}
+  ]},
+{ "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E553"}, "freq": 5,
+  "signals": [
+    {"id": "MINI_HVBAT_CELL_V_MIN_V2", "path": "Battery", "fmt": {           "len": 16, "max": 65.535, "div": 1000, "unit": "volts" }, "name": "HV battery cell voltage, min"},
+    {"id": "MINI_HVBAT_CELL_V_MAX_V2", "path": "Battery", "fmt": {"bix": 16, "len": 16, "max": 65.535, "div": 1000, "unit": "volts" }, "name": "HV battery cell voltage, max"}
+  ]},
+{ "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E554"}, "freq": 30,
+  "signals": [
+    {"id": "MINI_HVBAT_CELL_V_01", "path": "Battery", "fmt": {             "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 1 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_02", "path": "Battery", "fmt": {"bix": 16,   "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 2 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_03", "path": "Battery", "fmt": {"bix": 32,   "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 3 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_04", "path": "Battery", "fmt": {"bix": 48,   "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 4 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_05", "path": "Battery", "fmt": {"bix": 64,   "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 5 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_06", "path": "Battery", "fmt": {"bix": 80,   "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 6 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_07", "path": "Battery", "fmt": {"bix": 96,   "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 7 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_08", "path": "Battery", "fmt": {"bix": 112,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 8 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_09", "path": "Battery", "fmt": {"bix": 128,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 9 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_10", "path": "Battery", "fmt": {"bix": 144,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 10 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_11", "path": "Battery", "fmt": {"bix": 160,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 11 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_12", "path": "Battery", "fmt": {"bix": 176,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 12 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_13", "path": "Battery", "fmt": {"bix": 192,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 13 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_14", "path": "Battery", "fmt": {"bix": 208,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 14 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_15", "path": "Battery", "fmt": {"bix": 224,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 15 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_16", "path": "Battery", "fmt": {"bix": 240,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 16 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_17", "path": "Battery", "fmt": {"bix": 256,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 17 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_18", "path": "Battery", "fmt": {"bix": 272,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 18 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_19", "path": "Battery", "fmt": {"bix": 288,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 19 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_20", "path": "Battery", "fmt": {"bix": 304,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 20 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_21", "path": "Battery", "fmt": {"bix": 320,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 21 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_22", "path": "Battery", "fmt": {"bix": 336,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 22 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_23", "path": "Battery", "fmt": {"bix": 352,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 23 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_24", "path": "Battery", "fmt": {"bix": 368,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 24 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_25", "path": "Battery", "fmt": {"bix": 384,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 25 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_26", "path": "Battery", "fmt": {"bix": 400,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 26 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_27", "path": "Battery", "fmt": {"bix": 416,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 27 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_28", "path": "Battery", "fmt": {"bix": 432,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 28 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_29", "path": "Battery", "fmt": {"bix": 448,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 29 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_30", "path": "Battery", "fmt": {"bix": 464,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 30 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_31", "path": "Battery", "fmt": {"bix": 480,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 31 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_32", "path": "Battery", "fmt": {"bix": 496,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 32 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_33", "path": "Battery", "fmt": {"bix": 512,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 33 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_34", "path": "Battery", "fmt": {"bix": 528,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 34 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_35", "path": "Battery", "fmt": {"bix": 544,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 35 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_36", "path": "Battery", "fmt": {"bix": 560,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 36 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_37", "path": "Battery", "fmt": {"bix": 576,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 37 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_38", "path": "Battery", "fmt": {"bix": 592,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 38 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_39", "path": "Battery", "fmt": {"bix": 608,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 39 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_40", "path": "Battery", "fmt": {"bix": 624,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 40 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_41", "path": "Battery", "fmt": {"bix": 640,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 41 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_42", "path": "Battery", "fmt": {"bix": 656,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 42 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_43", "path": "Battery", "fmt": {"bix": 672,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 43 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_44", "path": "Battery", "fmt": {"bix": 688,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 44 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_45", "path": "Battery", "fmt": {"bix": 704,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 45 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_46", "path": "Battery", "fmt": {"bix": 720,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 46 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_47", "path": "Battery", "fmt": {"bix": 736,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 47 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_48", "path": "Battery", "fmt": {"bix": 752,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 48 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_49", "path": "Battery", "fmt": {"bix": 768,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 49 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_50", "path": "Battery", "fmt": {"bix": 784,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 50 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_51", "path": "Battery", "fmt": {"bix": 800,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 51 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_52", "path": "Battery", "fmt": {"bix": 816,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 52 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_53", "path": "Battery", "fmt": {"bix": 832,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 53 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_54", "path": "Battery", "fmt": {"bix": 848,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 54 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_55", "path": "Battery", "fmt": {"bix": 864,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 55 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_56", "path": "Battery", "fmt": {"bix": 880,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 56 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_57", "path": "Battery", "fmt": {"bix": 896,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 57 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_58", "path": "Battery", "fmt": {"bix": 912,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 58 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_59", "path": "Battery", "fmt": {"bix": 928,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 59 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_60", "path": "Battery", "fmt": {"bix": 944,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 60 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_61", "path": "Battery", "fmt": {"bix": 960,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 61 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_62", "path": "Battery", "fmt": {"bix": 976,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 62 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_63", "path": "Battery", "fmt": {"bix": 992,  "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 63 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_64", "path": "Battery", "fmt": {"bix": 1008, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 64 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_65", "path": "Battery", "fmt": {"bix": 1024, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 65 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_66", "path": "Battery", "fmt": {"bix": 1040, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 66 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_67", "path": "Battery", "fmt": {"bix": 1056, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 67 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_68", "path": "Battery", "fmt": {"bix": 1072, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 68 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_69", "path": "Battery", "fmt": {"bix": 1088, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 69 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_70", "path": "Battery", "fmt": {"bix": 1104, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 70 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_71", "path": "Battery", "fmt": {"bix": 1120, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 71 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_72", "path": "Battery", "fmt": {"bix": 1136, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 72 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_73", "path": "Battery", "fmt": {"bix": 1152, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 73 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_74", "path": "Battery", "fmt": {"bix": 1168, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 74 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_75", "path": "Battery", "fmt": {"bix": 1184, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 75 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_76", "path": "Battery", "fmt": {"bix": 1200, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 76 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_77", "path": "Battery", "fmt": {"bix": 1216, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 77 voltage"},
+    {"id": "MINI_HVBAT_CELL_V_78", "path": "Battery", "fmt": {"bix": 1232, "len": 16, "max": 65.535, "div": 1000, "nullmax": 32.767, "unit": "volts" }, "name": "HV battery cell 78 voltage"}
   ]},
 { "hdr": "6F1", "rax": "607", "eax": "07", "fcm1": true, "dbg": true, "cmd": {"22": "E561"}, "freq": 1,
   "signals": [
@@ -657,6 +752,14 @@
   "signals": [
     {"id": "MINI_GEAR_6F1", "path": "Transmission", "fmt": { "len": 8, "max": 255,                 "unit": "scalar" }, "name": "Current gear"},
     {"id": "MINI_GEAR_V2",  "path": "Transmission", "fmt": { "len": 8, "max": 255, "nullmax": 255, "unit": "scalar" }, "name": "Current gear"}
+  ]},
+{ "hdr": "6F1", "rax": "663", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D107"}, "freq": 0.25,
+  "signals": [
+    {"id": "MINI_VSS_V2", "path": "Movement", "fmt": { "len": 16, "max": 255, "div": 10, "unit": "kilometersPerHour" }, "name": "Vehicle speed", "suggestedMetric": "speed", "description": "Speedometer vehicle speed"}
+  ]},
+{ "hdr": "6F1", "rax": "663", "eax": "63", "fcm1": true, "dbg": true, "cmd": {"22": "D112"}, "freq": 5,
+  "signals": [
+    {"id": "MINI_AAT_V2", "path": "Climate", "fmt": { "len": 8, "max": 87.5, "min": -40, "div": 2, "add": -40, "unit": "celsius" }, "name": "Ambient air temperature"}
   ]},
 { "hdr": "6F1", "rax": "678", "eax": "78", "fcm1": true, "dbg": true, "cmd": {"22": "D85C"}, "freq": 5,
   "signals": [
